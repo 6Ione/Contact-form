@@ -50,6 +50,13 @@
       text-align: left;
     }
 
+    .error {
+      color: hsl(0, 66%, 54%);
+      font-size: 0.75rem;
+      display: block;
+      margin-top: 5px;
+    }
+    /* Firstname Lastname Row */
     .form-row {
       display: flex;
       gap: 15px;  
@@ -70,58 +77,143 @@
       margin-bottom: 8px;
     }
 
-    /* Mobile View */
-@media (max-width: 375px) {
+    /* Email Row */
+    .email-row {
+      margin-top: 20px;
+    }
+    .email-row #email {
+      width: 100%;
+      margin-top: 10px;
+      box-sizing: border-box;
+    }
 
-  .container {
-    height: auto;
-    padding: 20px 16px;
-  }
+    /* Query Type Row */
+    .radio-row {
+      display: flex;
+      gap: 15px;  
+    }
 
-  .card {
-    width: 100%;
-    max-width: 100%;
-    padding: 24px;
-    border-radius: 12px;
-  }
+    .query_type label {
+      display: flex;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
 
-  .my-form {
-    width: 100%;
-  }
+    .query-option {
+      cursor: pointer;
+      padding: 10px;
+      margin-top: 10px;
+      gap: 5px;
+      border: 1px solid hsl(186, 15%, 59%);
+      border-radius: 10px;
 
-  /* Stack first and last name */
-  .form-row {
-    flex-direction: column;
-    gap: 20px;
-  }
+      /* enlarges the border width */
+      width: 100%;
+      margin-top: 8px;
+      box-sizing: border-box;
+    }
 
-  .form-group {
-    width: 100%;
-  }
+    /* Message box section */
+    .user-message-row {
+      display: flex;
+      flex-direction: column;
+    }
 
-  .form-group input,
-  #email,
-  #user_msg {
-    width: 100%;
-    box-sizing: border-box;
-  }
+    .user-message-row label {
+      margin-top: 20px;
+    }
 
-  /* Query Type radios stack vertically */
-  .query-row {
-    flex-direction: column;
-    gap: 16px;
-  }
+    #user_msg {
+      width: 100%;
+      min-height: 120px;
+      border: 1px solid hsl(186, 15%, 59%);
+      border-radius: 10px;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
 
-  h1 {
-    font-size: 2rem;
-  }
+    /* Consent Row */
+    .consent-check {
+      display: flex;
+      justify-content: left;
+      align-items: left;
 
-  input,
-  textarea,
-  button {
-    font-size: 16px; /* Prevents iOS zoom */
-  }
+      margin-top: 20px;
+      margin-bottom: 50px;
+    }
+
+.submit-btn {
+  margin-top: 25px;
 }
+
+.submit-btn button {
+  width: 100%;
+  padding: 16px;
+  background-color: hsl(169, 82%, 27%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-btn button:hover {
+  background-color: hsl(169, 82%, 20%);
+}
+    /* Mobile View */
+    @media (max-width: 375px) {
+
+      .container {
+        height: auto;
+        padding: 20px 16px;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 100%;
+        padding: 24px;
+        border-radius: 12px;
+      }
+
+      .my-form {
+        width: 100%;
+      }
+
+      /* Stack first and last name */
+      .form-row {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .form-group {
+        width: 100%;
+      }
+
+      .form-group input,
+      #email,
+      #user_msg {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* Query Type radios stack vertically */
+      .query-row {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      input,
+      textarea,
+      button {
+        font-size: 16px; /* Prevents iOS zoom */
+      }
+    }
   </style>
 </head>
 <body class="body">
@@ -133,79 +225,71 @@
         </div>
 
         <div class="card-content">
-          <form class="my-form">
+          <form class="my-form" id="contactForm">
             <div class="form-row">
 
               <div class="form-group">
-                <label for="fname">First Name </label>
+                <label for="fname">First Name <span class="required">*</span></label>
                 <input type="text" id="fname" name="fname">
+                <small class="error" id="fnameError"></small>
               </div>
 
               <div class="form-group">
-                <label for="fname">Last Name </label>
+                <label for="lname">Last Name <span class="required">*</span></label>
                 <input type="text" id="lname" name="lname">
+                <small class="error" id="lnameError"></small>
               </div>
 
             </div>
-            <label for="email">Email Address </label><br>
-            <input type="text" id="email" name="email"><br>
+            <div class="email-row">
+              <label for="email">Email Address <span class="required">*</span></label><br>
+              <input type="text" id="email" name="email"><br>
+              <small class="error" id="emailError"></small>
+            </div>
+            
+            <div class="query_type">
+              <label for="query-type">Query Type <span class="required">*</span></label>
+            </div>
 
-            <div class="radio-row">
-              <label for="query-type">Query Type</label>
+            <div class="radio-row">              
               <div class="query-option">
-                <input type="radio" id="genEnquiry" name="genEnquiry" value="General_Enquiry">
+                <input type="radio" id="genEnquiry" name="queryType" value="General_Enquiry">
                 <label for="genEnquiry">General Enquiry</label>
               </div>
 
               <div class="query-option">
-                <input type="radio" id="SupRequest" name="SupRequest" value="support_request">
+                <input type="radio" id="supRequest" name="queryType" value="support_request">
                 <label for="SupRequest">Support Request</label>
               </div>
             </div>
+            <small class="error" id="queryError"></small>
 
-            <label for="user_msg">Message</label><br>
-            <input type="text" id="user_msg" name="user_msg"><br>
-            <input type="checkbox" id="consent_TOS" name="consent_TOS" value="Bike">
-            <label for="consent_TOS">I consent to being contacted by the team</label><br>
-            <input type="submit" value="Submit">
 
+            <div class="user-message-row">
+              <label for="user_msg">Message <span class="required">*</span></label><br>
+              <input type="text" id="user_msg" name="user_msg"><br>
+              <small class="error" id="usermsgError"></small>
+            </div>
+
+            <div class="consent-check">
+              <input type="checkbox" id="consent_TOS" name="consent_TOS" value="Bike">
+              <label for="consent_TOS">I consent to being contacted by the team <span class="required">*</span></label><br>
+            </div>
+            <small class="error" id="consentError"></small>
+
+            <div class="submit-btn">
+              <button type="submit">Submit</button>
+            </div>
           </form>
         </div>
       </div>
     </div>
   </main>
-
-  Contact Us
-
-  First Name
-  This field is required
-
-  Last Name
-  This field is required
-
-  Email Address
-  Please enter a valid email address
-  This field is required
-
-  Query Type
-  General Enquiry
-  Support Request
-  Please select a query type
-
-  Message
-  This field is required
-
-  I consent to being contacted by the team
-  To submit this form, please consent to being contacted
-
-  Submit
-
-  Message Sent!
-  Thanks for completing the form. We'll be in touch soon!
   
   <footer class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
     Coded by <a href="#">Capo</a>.
   </footer>
+  <script src="js/script.js"></script>
 </body>
 </html>
